@@ -8,14 +8,14 @@ How to use
 
 Call jPolo on a selected jQuery object:
 
-	`$('#the-map').jPolo()`
+	$('#the-map').jPolo();
 
 You can pass a google.maps.MapOptions object to customize the map:
 
-	`$('#the-map').jPolo({zoom:8,
+	$('#the-map').jPolo({zoom:8,
 				center: new google.maps.LatLng(-34.397, 150.644),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
-			});`
+			});
 
 
 Features
