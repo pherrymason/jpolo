@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>jPolo</title>
+
+	<!--Apple and Favicon-->
+	<link rel="icon" type="image/png" href="img/favicon.png" />
+	<link rel="apple-touch-icon" href="img/appleicon.png"/>
+
+	<!--CSS-->
+	<!--
+	<link href="inc/reset.css" rel="stylesheet" type="text/css" />
+	-->
+
+	<!--jquery & Javascript-->
+	<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBGQIS1MYs-YG6qDElDsnW68Orhy6YGrik&sensor=false">
+    </script>
+
+	<script language="JavaScript" type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="jpolo.js"></script>
+</head>
+
+<body>
+<!--the slider = wrapper # unsorted list-->
+<div id="map1" style="width:600px;height:400px">blabal</div>
+<div id="map2"></div>
+
+<script type="text/javascript">
+$(document).ready( function(){
+
+	$('#map1').jPolo({
+				zoom: 8,
+				center: new google.maps.LatLng(-34.397, 150.644),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+	var myLatlng = new google.maps.LatLng(-34.397, 150.644);
+
+	$('#map1').jPolo('addMarker', {position:myLatlng, title:'HOLA!'} );
+});
+</script>
+</body>
+</html>
