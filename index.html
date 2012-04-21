@@ -7,7 +7,11 @@
     <meta name="description" content="Jpolo : google maps jquery plugin" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+    <script src="//javascripts/jpolo.js"></script>
     <title>Jpolo</title>
   </head>
 
@@ -18,7 +22,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/clinisbut/jpolo">Fork Me on GitHub</a>
 
-          <h1 id="project_title">Jpolo</h1>
+          <h1 id="project_title">jPolo</h1>
           <h2 id="project_tagline">google maps jquery plugin</h2>
 
           <section id="downloads">
@@ -34,6 +38,7 @@
         <h1>jPolo Google Maps Plugin</h1>
 
 <p>A jQuery Plugin for displaying maps using Google Maps API v3.</p>
+<p>The aim of this plugin is to simplify the process of displaying a Google Map and manipulate it.</p>
 
 <h2>How to use</h2>
 
@@ -54,10 +59,20 @@
 
 <p>Not to much... right now you can only add Markers.</p>
 
-<ul>
-<li>Add Markers</li>
-</ul><h2>TODO</h2>
+<h3>Add Markers</h3>
+  <div id="marker1"></div>
+  <pre><code>var the_map = $('#the-map').jPolo({zoom:8,
+            center: new google.maps.LatLng(-34.397, 150.644),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
+    var markerOptions = {
+      position: new google.maps.LatLng(-34.397, 150.644),
+      title:'My first Marker'
+    };
+    the_map.jPolo('addMarker', markerOptions );
+  </code></pre>
+<h2>TODO</h2>
 <ul>
 <li>Bind events.</li>
 <li>Modify Markers.</li>
@@ -72,8 +87,7 @@
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-
-              <script type="text/javascript">
+<script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -82,7 +96,34 @@
               var pageTracker = _gat._getTracker("UA-31067184-1");
             pageTracker._trackPageview();
             } catch(err) {}
-          </script>
+
+
+$(document).ready( function(){
+
+
+$('#marker1').jPolo
+
+var the_map;
+
+
+// Marker example
+// --------------
+the_map = $('#the-map').jPolo({zoom:8,
+        center: new google.maps.LatLng(-34.397, 150.644),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+var markerOptions = {
+  position: new google.maps.LatLng(-34.397, 150.644),
+  title:'My first Marker'
+};
+the_map.jPolo('addMarker', markerOptions );
+
+
+
+
+});
+</script>
 
 
   </body>
