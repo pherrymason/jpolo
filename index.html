@@ -11,7 +11,7 @@
     <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?sensor=false">
     </script>
-    <script src="//javascripts/jpolo.js"></script>
+    <script src="https://raw.github.com/clinisbut/jpolo/master/jpolo.js"></script>
     <title>Jpolo</title>
   </head>
 
@@ -60,7 +60,7 @@
 <p>Not to much... right now you can only add Markers.</p>
 
 <h3>Add Markers</h3>
-  <div id="marker1"></div>
+  <div id="marker1" class="map"></div>
   <pre><code>var the_map = $('#the-map').jPolo({zoom:8,
             center: new google.maps.LatLng(-34.397, 150.644),
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -101,14 +101,12 @@
 $(document).ready( function(){
 
 
-$('#marker1').jPolo
-
 var the_map;
 
 
 // Marker example
 // --------------
-the_map = $('#the-map').jPolo({zoom:8,
+the_map = $('#marker1').jPolo({zoom:8,
         center: new google.maps.LatLng(-34.397, 150.644),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
