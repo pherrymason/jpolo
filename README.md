@@ -18,14 +18,26 @@ You can pass a `google.maps.MapOptions` object to customize the map:
 			});
 
 
-Features
+Methods
 --------
-Not to much... right now you can only add Markers.
-* Add Markers
+* reset: Removes the Map.
+* addMarker: Creates a `Marker`.
+* getMarker: Returns a `Marker` object given an `id`
+* addEventListener: Adds a callback to the event specified triggered by the map.
+* addEventListenerMarker: Adds a callback to specified event triggered by specified marker.
+
+
+Events
+------
+
+jPolo exposes following jQuery events:
+
+* **init**: triggered when the map is fully loaded.
+
 
 
 
 TODO
 ----
-* Bind events.
 * Modify Markers.
+* Check if unify `addEventListener`/`addEventListenerMarker` methods with jQuery events is possible.

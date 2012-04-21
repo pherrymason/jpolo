@@ -2,7 +2,7 @@
 	
 	$.fn.jPolo = function(option){
 		var args = Array.prototype.slice.call(arguments, 1);
-		return this.each( function(){
+		//return this.each( function(){
 
 			var $this = $(this),
 				data = $this.data('jPolo'),
@@ -15,12 +15,12 @@
 
 			if( typeof option == 'string' )
 			{
-				// call methods
-				// data[option]()
-				// call data[option] with the arguments passed
-				returnValue = data[option].apply( data, args );
+				var returnValue = data[option].apply( data, args );
+				return returnValue;
 			}
-		});
+			else
+				return this;
+	//	});
 	}
 
 
@@ -36,16 +36,22 @@
 		init: function(){
 
 			// Creates the map
-			/*
-			var myOptions = {
-				zoom: 8,
-				center: new google.maps.LatLng(-34.397, 150.644),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
-			*/
-			
 			this.map = new google.maps.Map( this.$element[0], this.options );
+			//this.map.checkResize();
 
+			var that = this;
+			google.maps.event.addListenerOnce( this.map, 'bounds_changed', function(){
+					that.$elemnt.trigger('init', that.map);
+				});
+		},
+
+		/*!	\brief Removes the map, and frees all objects
+		*/
+		reset:function(){
+
+			this.$element.html('');
+			this.map = null;
+			this.markers = [];
 		},
 
 
@@ -57,15 +63,47 @@
 		addMarker: function( markerOptions ){
 
 			markerOptions.map = this.map;
-			console.log('Mark options');
-			console.log( markerOptions );
 			var marker = new google.maps.Marker( markerOptions );
 
-			console.log( marker );
-			console.log( marker.id );
-
 			this.markers = this.markers || [];
-			this.markers[ marker.id ] = marker;
+
+			if( marker.id )
+			{
+				this.markers[ marker.id ] = marker;
+			}
+			else
+				this.markers.push( marker );
+		},
+
+
+		/*!	\brief Returns a given Marker
+		*/
+		getMarker : function( id ){
+
+			return this.markers[id] ;
+		},
+
+
+
+
+		/*!	\brief Add a listener to the map.
+		*/
+		addEventListener : function( eventType, eventData_Callback ){
+
+			google.maps.event.addListener( this.map, eventType, eventData_Callback );
+		},
+
+
+		/*!	\brief Add a listener to a mark
+		*/
+		addEventListenerMarker : function( eventType, MarkerId, eventData_Callback ){
+
+			if( typeof MarkerId == 'string' )
+			{
+				google.maps.event.addListener( this.getMarker(MarkerId), eventType, eventData_Callback );
+			}
+			else
+				google.maps.event.addListener( MarkerId, eventType, eventData_Callback );
 		}
 	};
 
