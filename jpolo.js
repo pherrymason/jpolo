@@ -15,6 +15,9 @@
 
 			if( typeof option == 'string' )
 			{
+				// call methods
+				// data[option]()
+				// call data[option] with the arguments passed
 				var returnValue = data[option].apply( data, args );
 				return returnValue;
 			}
@@ -36,13 +39,36 @@
 		init: function(){
 
 			// Creates the map
+			/*
+			var myOptions = {
+				zoom: 8,
+				center: new google.maps.LatLng(-34.397, 150.644),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			*/
+
+			
 			this.map = new google.maps.Map( this.$element[0], this.options );
+			this.markers = [];
 			//this.map.checkResize();
 
 			var that = this;
 			google.maps.event.addListenerOnce( this.map, 'bounds_changed', function(){
-					that.$elemnt.trigger('init', that.map);
-				});
+
+				// Check if there is data-API
+				var marker = that.$element.data('marker');
+				if( marker )
+				{
+					// TODO: handle multiple marks
+					marker.position = new google.maps.LatLng(marker.lat, marker.lon);
+					that.addMarker(marker);
+
+					// Center based on all placed marks
+					that.centerOnMarks();
+				}
+
+				that.$element.trigger('init', that.map);
+			});
 		},
 
 		/*!	\brief Removes the map, and frees all objects
@@ -73,6 +99,8 @@
 			}
 			else
 				this.markers.push( marker );
+
+			return marker;
 		},
 
 
@@ -80,10 +108,32 @@
 		*/
 		getMarker : function( id ){
 
-			return this.markers[id] ;
+			return (this.markers[id])? this.markers[id]:null;
 		},
 
 
+		/*! \brief Center all marks
+		*/
+		centerOnMarks : function(){
+
+			var bounds = new google.maps.LatLngBounds(),
+				count = 0;
+
+			for( var m in this.markers )
+			{
+				if( typeof this.markers[m] ==='object' )
+				{
+					count ++;
+					bounds.extend( this.markers[ m ].getPosition() );
+				}
+			}
+
+			this.map.fitBounds( bounds );
+			if( count==1 )
+			{
+				this.map.setZoom(18);
+			}
+		},
 
 
 		/*!	\brief Add a listener to the map.
